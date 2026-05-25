@@ -74,9 +74,7 @@ let note=document.createElement("div");
 
 note.className="note";
 
-note.dataset.lane=laneNum;
-
-note.style.top="0px";
+note.dataset.y=0;
 
 lanes[laneNum].appendChild(note);
 
@@ -99,7 +97,7 @@ clearInterval(move);
 
 },20);
 
-note.dataset.move=move;
+note.moveInterval=move;
 
 }
 
@@ -128,19 +126,20 @@ let point=0;
 if(distance<20){
 
 point=10;
-console.log("Perfect");
+showJudge("Perfect");
 
 }
 else if(distance<50){
 
 point=5;
-console.log("Good");
+showJudge("Good");
 
 }
 else{
 
-point=0;
-console.log("Miss");
+showJudge("Miss");
+
+return;
 
 }
 
@@ -148,23 +147,52 @@ score+=point;
 
 focus.innerText=score;
 
-if(point>0){
-
-clearInterval(note.dataset.move);
+clearInterval(note.moveInterval);
 
 note.remove();
 
-}
-
 });
 
+function showJudge(text){
+
+let judge=document.createElement("div");
+
+judge.innerText=text;
+
+judge.style.position="absolute";
+judge.style.left="50%";
+judge.style.top="40%";
+judge.style.transform="translateX(-50%)";
+judge.style.fontSize="40px";
+judge.style.fontWeight="bold";
+
+document.body.appendChild(judge);
+
+setTimeout(()=>{
+
+judge.remove();
+
+},500);
+
+}
+
 function createDistraction(){
+
+let messages=[
+
+"📱 SNS 알림!",
+"🎮 게임 초대!",
+"💬 새 메시지!",
+"📢 광고 등장!"
+
+];
 
 let popup=document.createElement("div");
 
 popup.className="popup";
 
-popup.innerText="📱 SNS 알림!";
+popup.innerText=
+messages[Math.floor(Math.random()*4)];
 
 document.body.appendChild(popup);
 
@@ -178,7 +206,11 @@ popup.remove();
 
 function endGame(){
 
-alert("당신의 집중도는 "+score+" 입니다");
+alert(
+"당신의 집중도는 "
++score+
+" 입니다"
+);
 
 location.reload();
 
