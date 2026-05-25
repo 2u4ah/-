@@ -4,7 +4,7 @@ const countdown=document.getElementById("countdown");
 const focus=document.getElementById("focus");
 
 let score=0;
-let speed=5;
+let speed=7;
 
 const keys=["D","F","J","K"];
 
@@ -50,9 +50,15 @@ playGame();
 
 function playGame(){
 
-setInterval(createNote,1000);
+setInterval(createNote,900);
 
 setInterval(createDistraction,5000);
+
+setTimeout(()=>{
+
+speed=10;
+
+},20000);
 
 setTimeout(endGame,120000);
 
@@ -68,6 +74,10 @@ let note=document.createElement("div");
 
 note.className="note";
 
+note.dataset.lane=laneNum;
+
+note.style.top="0px";
+
 lanes[laneNum].appendChild(note);
 
 let y=0;
@@ -78,15 +88,18 @@ y+=speed;
 
 note.style.top=y+"px";
 
+note.dataset.y=y;
+
 if(y>window.innerHeight){
 
 note.remove();
-
 clearInterval(move);
 
 }
 
 },20);
+
+note.dataset.move=move;
 
 }
 
@@ -94,11 +107,52 @@ document.addEventListener("keydown",(e)=>{
 
 let key=e.key.toUpperCase();
 
-if(keys.includes(key)){
+let index=keys.indexOf(key);
 
-score+=10;
+if(index===-1) return;
+
+let lane=document.querySelectorAll(".lane")[index];
+
+let note=lane.querySelector(".note");
+
+if(!note) return;
+
+let y=parseInt(note.dataset.y);
+
+let hitPosition=window.innerHeight-150;
+
+let distance=Math.abs(hitPosition-y);
+
+let point=0;
+
+if(distance<20){
+
+point=10;
+console.log("Perfect");
+
+}
+else if(distance<50){
+
+point=5;
+console.log("Good");
+
+}
+else{
+
+point=0;
+console.log("Miss");
+
+}
+
+score+=point;
 
 focus.innerText=score;
+
+if(point>0){
+
+clearInterval(note.dataset.move);
+
+note.remove();
 
 }
 
