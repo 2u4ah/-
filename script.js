@@ -12,7 +12,9 @@ startBtn.onclick=startGame;
 
 function startGame(){
 
-document.getElementById("startScreen").style.display="none";
+document.getElementById(
+"startScreen"
+).style.display="none";
 
 let count=3;
 
@@ -27,11 +29,13 @@ if(count>0){
 countdown.innerText=count;
 
 }
+
 else if(count===0){
 
 countdown.innerText="START";
 
 }
+
 else{
 
 clearInterval(timer);
@@ -60,7 +64,7 @@ speed=10;
 
 },20000);
 
-setTimeout(endGame,120000);
+setTimeout(endGame,60000);
 
 }
 
@@ -91,6 +95,7 @@ note.dataset.y=y;
 if(y>window.innerHeight){
 
 note.remove();
+
 clearInterval(move);
 
 }
@@ -107,19 +112,21 @@ let key=e.key.toUpperCase();
 
 let index=keys.indexOf(key);
 
-if(index===-1) return;
+if(index===-1)return;
 
 let lane=document.querySelectorAll(".lane")[index];
 
 let note=lane.querySelector(".note");
 
-if(!note) return;
+if(!note)return;
 
 let y=parseInt(note.dataset.y);
 
-let hitPosition=window.innerHeight-150;
+let hitPosition=
+window.innerHeight-150;
 
-let distance=Math.abs(hitPosition-y);
+let distance=
+Math.abs(hitPosition-y);
 
 let point=0;
 
@@ -129,16 +136,17 @@ point=10;
 showJudge("Perfect");
 
 }
+
 else if(distance<50){
 
 point=5;
 showJudge("Good");
 
 }
+
 else{
 
 showJudge("Miss");
-
 return;
 
 }
@@ -147,7 +155,9 @@ score+=point;
 
 focus.innerText=score;
 
-clearInterval(note.moveInterval);
+clearInterval(
+note.moveInterval
+);
 
 note.remove();
 
@@ -155,14 +165,17 @@ note.remove();
 
 function showJudge(text){
 
-let judge=document.createElement("div");
+let judge=
+document.createElement("div");
 
 judge.innerText=text;
 
 judge.style.position="absolute";
 judge.style.left="50%";
 judge.style.top="40%";
-judge.style.transform="translateX(-50%)";
+judge.style.transform=
+"translateX(-50%)";
+
 judge.style.fontSize="40px";
 judge.style.fontWeight="bold";
 
@@ -183,18 +196,46 @@ let messages=[
 "📱 SNS 알림!",
 "🎮 게임 초대!",
 "💬 새 메시지!",
-"📢 광고 등장!"
+"📢 광고 등장!",
+"🔥 오늘만 할인!",
+"📺 새 영상 업로드!"
 
 ];
 
-let popup=document.createElement("div");
+let popup=
+document.createElement("div");
 
 popup.className="popup";
 
 popup.innerText=
-messages[Math.floor(Math.random()*4)];
+messages[
+Math.floor(
+Math.random()
+*messages.length
+)
+];
 
-document.body.appendChild(popup);
+if(Math.random()<0.5){
+
+popup.style.top="50px";
+popup.style.left=
+Math.random()*70+"%";
+
+}
+
+else{
+
+popup.style.top="50%";
+popup.style.left="50%";
+
+popup.style.transform=
+"translate(-50%,-50%)";
+
+}
+
+document.body.appendChild(
+popup
+);
 
 setTimeout(()=>{
 
