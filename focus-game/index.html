@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>집중력 게임</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="startScreen">
+    <h1>나의 집중도는 얼마일까?</h1>
+    <button id="startBtn">게임 시작</button>
+</div>
+
+<div id="countdown"></div>
+
+<div id="game">
+
+    <div id="score">
+        집중도: <span id="focus">0</span>
+    </div>
+
+    <div id="distractionArea"></div>
+
+    <div id="lanes">
+
+        <div class="lane" data-key="D">
+            <div class="keyLabel">D</div>
+        </div>
+
+        <div class="lane" data-key="F">
+            <div class="keyLabel">F</div>
+        </div>
+
+        <div class="lane" data-key="J">
+            <div class="keyLabel">J</div>
+        </div>
+
+        <div class="lane" data-key="K">
+            <div class="keyLabel">K</div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
