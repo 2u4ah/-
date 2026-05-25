@@ -88,3 +88,18 @@ left:100%;
 }
 
 }
+.hitLine{
+
+position:absolute;
+
+bottom:100px;
+
+width:100%;
+
+height:5px;
+
+background:red;
+
+z-index:100;
+
+}
