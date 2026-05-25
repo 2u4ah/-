@@ -4,6 +4,7 @@ const countdown=document.getElementById("countdown");
 const focus=document.getElementById("focus");
 
 let score=0;
+
 let speed=7;
 
 const keys=["D","F","J","K"];
@@ -64,6 +65,12 @@ speed=10;
 
 },20000);
 
+setTimeout(()=>{
+
+speed=14;
+
+},40000);
+
 setTimeout(endGame,60000);
 
 }
@@ -118,7 +125,13 @@ let lane=document.querySelectorAll(".lane")[index];
 
 let note=lane.querySelector(".note");
 
-if(!note)return;
+if(!note){
+
+score-=5;
+focus.innerText=score;
+showJudge("Miss");
+return;
+}
 
 let y=parseInt(note.dataset.y);
 
@@ -146,8 +159,8 @@ showJudge("Good");
 
 else{
 
+point=-5;
 showJudge("Miss");
-return;
 
 }
 
@@ -155,11 +168,15 @@ score+=point;
 
 focus.innerText=score;
 
+if(point>0){
+
 clearInterval(
 note.moveInterval
 );
 
 note.remove();
+
+}
 
 });
 
@@ -247,10 +264,29 @@ popup.remove();
 
 function endGame(){
 
+let result="";
+
+if(score>=300){
+
+result="집중력 마스터";
+
+}
+else if(score>=150){
+
+result="집중력 우수";
+
+}
+else{
+
+result="주의 분산 상태";
+
+}
+
 alert(
 "당신의 집중도는 "
 +score+
-" 입니다"
+"\n\n"
++result
 );
 
 location.reload();
